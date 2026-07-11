@@ -56,6 +56,7 @@ class AutoRoom(
         "channel_name_type": "username",
         "channel_name_format": "",
         "perm_owner_manage_channels": True,
+        "perm_owner_set_voice_status": True,
         "perm_send_messages": True,
     }
     default_channel_settings: ClassVar[dict[str, int | list[int] | None]] = {
@@ -78,6 +79,7 @@ class AutoRoom(
         "manage_channels": True,
         "manage_messages": True,
         "move_members": True,
+        "set_voice_channel_status": True,
     }
 
     perms_legacy_text: ClassVar[list[str]] = ["read_message_history", "read_messages"]
@@ -897,6 +899,7 @@ class AutoRoom(
             **perms["allow"],
             "manage_channels": True if config["perm_owner_manage_channels"] else None,
             "manage_messages": True,
+            "set_voice_channel_status": True if config["perm_owner_set_voice_status"] else None,
         }
         if config["room_type"] == "private":
             perms["access"] = perms["deny"]
